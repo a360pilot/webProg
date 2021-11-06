@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="https://kit.fontawesome.com/25331c3c80.js" crossorigin="anonymous"></script>
+    <title>Mini Music Player</title>
+</head>
+<body>
+    <div class="music-box">
+        <div class="cover">
+            <img src="./files/cover1.jpg" alt="Mudic Cover">
+        </div>
+        <div class="controls">
+            <h2>دیمیتری شوستاکوویچ</h2>
+            <h4>والس شماره‌ی ۲</h4>
+            <div class="slider">
+                <div class="elapsed">
+                    <audio class="music" loop="false">
+                        <source src="./files/music1.mp3" type="audio/mp3">
+                        خطا! مرورگر شما از سرویس موسیقی پشتیبانی نمیکند.
+                    </audio>
+                </div>
+            </div>
+            <p class="timer">۰:۰۰</p>
+            <div class="icons">
+                <ul>
+                    <li><i class="fas fa-volume-up fa-1x" id="vol-up"></i></li>
+                    <li><i class="fas fa-volume-down fa-1x" id="vol-down"></i></li>
+                    <li><i class="fas fa-heart fa-1x spaced" id="like"></i></li>
+                    <li><i class="fas fa-forward fa-1x" id="forward"></i></li>
+                    <li><i class="fas fa-play fa-1x" id="play"></i></li>
+                    <li><i class="fas fa-backward fa-1x" id="backward"></i></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="./scripts/app.js"></script>
+</body>
+</html>
