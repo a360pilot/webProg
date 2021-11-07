@@ -13,6 +13,9 @@ This project is a mini music player that can be customized and used in websites.
 - - Volume changing slider
 - - Volume keyboard shortcuts
 - - User ability to jump to any moment in the music (slider manipulation)
+- - More than one music track now possible
+- - Navigation functionality and keyboard shortcuts
+- - User seeking using mouse and keyboard
 # &#128283; Version History:
 - **Version 1.1:** Initial commit on 11/07/2021, New features include volume and user play-percentage selection and their relevant keyboard shortcuts.
 - **Version 1.0:** Initial commit on 11/06/2021, Containing music player base layout and play button. Keyboard shortcuts for muting and playing are implemented.
