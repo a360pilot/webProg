@@ -22,7 +22,7 @@ img {
 }
 ul, li {
     list-style: none;
-    text-align: left;
+    text-align: center;
 }
 .music-box {
     position: absolute;
@@ -97,7 +97,7 @@ ul, li {
     color: #EF6DBC;
 }
 .icons .spaced {
-    margin-left: 20px;
+    margin-left: 32px;
 }
 #range-item {
     margin: 0px;
