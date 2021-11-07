@@ -1,9 +1,9 @@
 const music = document.querySelector('.music');
+const cover = document.querySelector('.cover');
 const play = document.querySelector('#play');
 const elapsed = document.querySelector('.elapsed');
 const slider = document.querySelector('.slider');
 const timer = document.querySelector('.timer');
-const like = document.querySelector('#like');
 const vol = document.querySelector('#vol-slider');
 
 const volUp = document.querySelector('#vol-up');
@@ -12,23 +12,45 @@ const volDown = document.querySelector('#vol-down');
 let duration = 0;
 let isPlaying = false;
 music.volume = vol.value;
-
 music.loop = false;
+
+// Check if music is loaded correctly:
 music.addEventListener('canplaythrough', function() {
     duration = music.duration;
     return;
 });
 
+// Progressively update music information:
 music.addEventListener('timeupdate', timeUpdate);
-play.addEventListener('click', playPause);
 
-volUp.addEventListener('click', function() {
-    changeVolume(0.1);
-});
-volDown.addEventListener('click', function() {
-    changeVolume(-0.1);
-});
+// Update volume bar width:
+vol.addEventListener('input', function() {
+    vol.style.backgroundSize = `${vol.value * 100}% 100%`;
+})
 
+// Combine all 'click' event listeners in one function:
+document.addEventListener('click', function(evObj) {
+    let target = evObj.target;
+    let className = target.className;
+    let id = target.id;
+
+    if(id === 'play') {
+        playPause();
+    }
+    if(id === 'vol-up') {
+        changeVolume(0.1);
+    }
+    if(id === 'vol-down') {
+        changeVolume(-0.1);
+    }
+    if(className === 'slider' || className === 'elapsed') {
+        let clickTime = (slider.offsetWidth - (evObj.layerX - slider.offsetLeft)) / slider.offsetWidth * duration;
+        music.currentTime = clickTime;
+    }
+    return;
+})
+
+// Combine all 'wheel' event listeners in one function:
 vol.addEventListener('wheel', function(evObj) {
     if(evObj.wheelDeltaY > 0) {
         changeVolume(0.1);
@@ -37,14 +59,58 @@ vol.addEventListener('wheel', function(evObj) {
     }
     return;
 }, {passive: true});
-vol.addEventListener('input', function() {
-    vol.style.backgroundSize = `${vol.value * 100}% 100%`;
-})
 
-slider.addEventListener('click', function(evObj) {
-    let clickTime = (slider.offsetWidth - (evObj.layerX - slider.offsetLeft)) / slider.offsetWidth * duration;
-    music.currentTime = clickTime;
-})
+// Event listeners for keyboard shortcuts:
+document.addEventListener('keydown', function(evObj) {
+    key = evObj.key;
+
+    if(key === 'k') {
+        playPause();
+        return;
+    }
+    if(key === 'm') {
+        music.muted = !music.muted;
+        return;
+    }
+    if(key === 'ArrowUp') {
+        changeVolume(0.1);
+        return;
+    }
+    if(key === 'ArrowDown') {
+        changeVolume(-0.1);
+        return;
+    }
+    if(key === 'ArrowRight') {
+        let currentTime = music.currentTime;
+        if(currentTime - 5 < 0) {
+            music.currentTime = 0;
+            return;
+        }
+        music.currentTime = currentTime - 5;
+        return;
+    }
+    if(key === 'ArrowLeft') {
+        let currentTime = music.currentTime;
+        if(currentTime + 5 >= duration) {
+            music.currentTime = duration;
+            return;
+        }
+        music.currentTime = currentTime + 5;
+        return;
+    }
+});
+
+
+
+// *********************************************************************************************************************
+// *********************************************************************************************************************
+// *********************************************************************************************************************
+// *********************************************************************************************************************
+//                                        Other Functions Used in Listener Calls
+// *********************************************************************************************************************
+// *********************************************************************************************************************
+// *********************************************************************************************************************
+// *********************************************************************************************************************
 
 function timeUpdate() {
     let playPercent = slider.offsetWidth * (music.currentTime / duration);
@@ -92,28 +158,6 @@ function playPause() {
     return;
 }
 
-// Event listeners for keyboard shortcuts:
-document.addEventListener('keydown', function(evObj) {
-    key = evObj.key;
-
-    if(key === 'k') {
-        playPause();
-        return;
-    }
-    if(key === 'm') {
-        music.muted = !music.muted;
-        return;
-    }
-    if(key === 'ArrowUp') {
-        changeVolume(0.1);
-        return;
-    }
-    if(key === 'ArrowDown') {
-        changeVolume(-0.1);
-        return;
-    }
-});
-
 function changeVolume(value) {
     // Check overflows:
     if((value + music.volume > 1)
@@ -130,3 +174,27 @@ function changeVolume(value) {
     vol.style.backgroundSize = `${vol.value * 100}% 100%`
     return;
 }
+
+// *********************************************************************************************************************
+// *********************************************************************************************************************
+// *********************************************************************************************************************
+// *********************************************************************************************************************
+//                                        Commented Discrete Event Listeners
+// *********************************************************************************************************************
+// *********************************************************************************************************************
+// *********************************************************************************************************************
+// *********************************************************************************************************************
+
+// play.addEventListener('click', playPause);
+
+// volUp.addEventListener('click', function() {
+//     changeVolume(0.1);
+// });
+// volDown.addEventListener('click', function() {
+//     changeVolume(-0.1);
+// });
+
+// slider.addEventListener('click', function(evObj) {
+//     let clickTime = (slider.offsetWidth - (evObj.layerX - slider.offsetLeft)) / slider.offsetWidth * duration;
+//     music.currentTime = clickTime;
+// })
