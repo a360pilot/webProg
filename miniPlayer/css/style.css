@@ -61,6 +61,9 @@ ul, li {
     background: #151518;
     border-radius: 2px;
 }
+.slider:hover {
+    cursor: pointer;
+}
 .elapsed {
     width: 4px;
     height: 4px;
@@ -95,4 +98,41 @@ ul, li {
 }
 .icons .spaced {
     margin-left: 20px;
+}
+#range-item {
+    margin: 0px;
+    cursor: default;
+}
+#vol-slider {
+    -webkit-appearance: none;
+    width: 50px;
+    height: 4px;
+    direction: ltr;
+    position: relative;
+    bottom: 4px;
+    background: #151518;
+    background-image: linear-gradient(#EF6DBC, #EF6DBC);
+    background-size: 50% 100%;
+    background-repeat: no-repeat;
+    border-radius: 2px;
+    user-select: none;
+}
+#vol-slider:hover {
+    cursor: pointer;
+}
+#vol-slider::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    appearance: none;
+    background: #EF6DBC;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+#vol-slider::-moz-range-thumb {
+    background: #EF6DBC;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    cursor: pointer;
 }
